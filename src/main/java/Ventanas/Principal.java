@@ -1,25 +1,32 @@
 package Ventanas;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 
 /**
  * @author Javier Jamaica
  * 20/11/2022 - 16:52
  */
 public class Principal {
-    public JPanel ContenedorPrincipal;
-    public JLabel tituloPrincipal;
-    public JButton button1;
+    public JPanel contenedorPrincipal;
+    private JLabel tituloPrincipal;
+    public JButton entrarButton;
+    private JButton entrarButton4;
+    private JButton entrarButton2;
+    private JButton entrarButton3;
+    private JLabel tituloPedidos;
+    private JLabel tituloProductos;
+    private JLabel tituloEmpleados;
+    private JLabel tituloBusquedas;
+    private JLabel imagenLabel;
 
-    public Principal(){
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("siiiu");
-            }
-        });
+
+    public Principal() {
+        imagenLabel.setSize(300, 300);
+        tituloPrincipal.setText("<html><body>Bienvenido a mi <br>gran <br>aplicacion!</body></html>");
+        ImageIcon imagen = new ImageIcon("src/main/java/Imagenes/MiAplicacion.png");
+        Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(imagenLabel.getWidth(), imagenLabel.getHeight(), Image.SCALE_DEFAULT));
+        imagenLabel.setIcon(icon);
     }
 
 }
