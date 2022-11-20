@@ -1,7 +1,5 @@
 package Clases;
-
 import Ventanas.Principal;
-
 import javax.swing.*;
 import java.awt.*;
 

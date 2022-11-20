@@ -150,7 +150,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="6b1ba" class="javax.swing.JButton" binding="entrarButton" default-binding="true">
+              <component id="6b1ba" class="javax.swing.JButton" binding="botonPedidos">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                     <maximum-size width="100" height="100"/>
@@ -172,7 +172,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="bbc6d" class="javax.swing.JButton" binding="entrarButton4" default-binding="true">
+              <component id="bbc6d" class="javax.swing.JButton" binding="botonProductos">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                     <maximum-size width="100" height="100"/>
@@ -194,7 +194,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="79cfe" class="javax.swing.JButton" binding="entrarButton2" default-binding="true">
+              <component id="79cfe" class="javax.swing.JButton" binding="botonEmpleados">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                     <maximum-size width="100" height="100"/>
@@ -216,7 +216,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="d889a" class="javax.swing.JButton" binding="entrarButton3" default-binding="true">
+              <component id="d889a" class="javax.swing.JButton" binding="botonBusquedas">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                     <maximum-size width="100" height="100"/>
