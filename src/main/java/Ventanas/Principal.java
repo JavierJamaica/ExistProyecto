@@ -21,7 +21,11 @@ public class Principal {
     private JLabel tituloEmpleados;
     private JLabel tituloBusquedas;
     private JLabel imagenLabel;
+    JFrame framePro = new JFrame("Productos");
 
+    JFrame frameEmp = new JFrame("Empleados");
+    JFrame framePedi = new JFrame("Pedidos");
+    JFrame frameBuscar = new JFrame("Buscar");
 
     public Principal() {
         imagenLabel.setSize(300, 300);
@@ -36,30 +40,59 @@ public class Principal {
                 int height = pantalla.height;
                 int width = pantalla.width;
 
-                JFrame frame = new JFrame("Principal");
-                frame.setLocation(width / 3, height / 3);
-                frame.setContentPane(new VentanaPedidos().contenedorPrincipal);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.pack();
-                frame.setVisible(true);
+
+                framePedi.setLocation(width / 3, height / 3);
+                framePedi.setContentPane(new VentanaPedidos().contenedorPrincipal);
+                framePedi.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                framePedi.pack();
+                framePedi.setVisible(true);
 
             }
         });
         botonProductos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
 
+
+                framePro.setLocation(width / 3, height / 3);
+                framePro.setContentPane(new VentanaProductos().contenedorPrincipal);
+                framePro.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                framePro.pack();
+                framePro.setVisible(true);
             }
         });
         botonEmpleados.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
 
+
+                frameEmp.setLocation(width / 3, height / 3);
+                frameEmp.setContentPane(new VentanaEmpleados().contenedorPrincipal);
+                frameEmp.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                frameEmp.pack();
+                frameEmp.setVisible(true);
             }
         });
         botonBusquedas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+
+
+                frameBuscar.setLocation(width / 3, height / 3);
+                frameBuscar.setContentPane(new VentanaBusquedas().contenedorPrincipal);
+                frameBuscar.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                frameBuscar.pack();
+                frameBuscar.setVisible(true);
 
             }
         });

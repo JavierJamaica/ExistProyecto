@@ -12,7 +12,6 @@ public class Main {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         int height = pantalla.height;
         int width = pantalla.width;
-
         JFrame frame = new JFrame("Principal");
         frame.setLocation( width /3 , height/3 );
         frame.setContentPane(new Principal().contenedorPrincipal);
