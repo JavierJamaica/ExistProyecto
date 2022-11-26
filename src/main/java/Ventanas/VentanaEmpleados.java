@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
  * @author Javier Jamaica
  * 20/11/2022 - 19:22
  */
-public class VentanaEmpleados {
+public class VentanaEmpleados extends JFrame {
     public JPanel contenedorPrincipal;
     private JButton crearButton;
     private JButton modificarButton;
@@ -18,10 +18,9 @@ public class VentanaEmpleados {
     private JLabel imagenEmpleados;
 
     public VentanaEmpleados() {
-        imagenEmpleados.setSize(90, 90);
-        ImageIcon imagen = new ImageIcon("src/main/java/Imagenes/EmpleadoLogo.png");
-        Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(imagenEmpleados.getWidth(), imagenEmpleados.getHeight(), Image.SCALE_DEFAULT));
-        imagenEmpleados.setIcon(icon);
+        setContentPane(contenedorPrincipal);
+        CargarImagen(imagenEmpleados);
+
         crearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,9 +42,23 @@ public class VentanaEmpleados {
         atrasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new Principal();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
             }
         });
 
+    }
+    public static void CargarImagen(JLabel imagenEmpleados) {
+        imagenEmpleados.setSize(80, 80);
+        ImageIcon imagen = new ImageIcon("src/main/java/Imagenes/EmpleadoLogo.png");
+        Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(imagenEmpleados.getWidth(), imagenEmpleados.getHeight(), Image.SCALE_DEFAULT));
+        imagenEmpleados.setIcon(icon);
     }
 }

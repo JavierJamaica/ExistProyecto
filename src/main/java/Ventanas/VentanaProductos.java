@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
  * @author Javier Jamaica
  * 20/11/2022 - 19:21
  */
-public class VentanaProductos {
+public class VentanaProductos extends JFrame {
     public JPanel contenedorPrincipal;
     private JButton crearBoton;
     private JButton modificarButton;
@@ -18,14 +18,20 @@ public class VentanaProductos {
     private JLabel imagenProductos;
 
     public VentanaProductos() {
-        imagenProductos.setSize(80, 80);
-        ImageIcon imagen = new ImageIcon("src/main/java/Imagenes/ProductosLogo.png");
-        Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(imagenProductos.getWidth(), imagenProductos.getHeight(), Image.SCALE_DEFAULT));
-        imagenProductos.setIcon(icon);
+        setContentPane(contenedorPrincipal);
+        CargarImagen(imagenProductos);
         crearBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new crearProducto();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
             }
         });
         modificarButton.addActionListener(new ActionListener() {
@@ -43,10 +49,25 @@ public class VentanaProductos {
         atrasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new Principal();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
             }
         });
 
 
+    }
+
+    public static void CargarImagen(JLabel imagenProductos) {
+        imagenProductos.setSize(80, 80);
+        ImageIcon imagen = new ImageIcon("src/main/java/Imagenes/ProductosLogo.png");
+        Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(imagenProductos.getWidth(), imagenProductos.getHeight(), Image.SCALE_DEFAULT));
+        imagenProductos.setIcon(icon);
     }
 }
