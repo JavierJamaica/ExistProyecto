@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
  */
 public class crearProducto extends JFrame {
     private JPanel contenedorPrincipal;
-    private JTextField textoId;
     private JTextField textoNombre;
     private JTextField textoDescripcion;
     private JTextField textoPrecio;
     private JButton atrasButton;
     private JButton crearRegistroButton;
+    private JSpinner idProducto;
 
     public crearProducto() {
         setContentPane(contenedorPrincipal);
@@ -38,8 +38,8 @@ public class crearProducto extends JFrame {
         crearRegistroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ComprobarTextos(textoId, textoNombre, textoDescripcion, textoPrecio)) {
-                    int id = comprobarId(textoId);
+                if (ComprobarTextos(idProducto, textoNombre, textoDescripcion, textoPrecio)) {
+                    int id = (int) idProducto.getValue();
                     if (id != -1) {
                         double precio = comprobarPrecio(textoPrecio);
 
@@ -58,30 +58,18 @@ public class crearProducto extends JFrame {
         });
     }
 
-    public static boolean ComprobarTextos(JTextField textoId, JTextField textoNombre, JTextField textoDescripcion, JTextField textoPrecio) {
-        if (textoId.getText().equals("") || textoNombre.getText().equals("") || textoDescripcion.getText().equals("") || textoPrecio.getText().equals(" ")) {
-            JOptionPane.showMessageDialog(null, "Todos los datos deben estar completos!", "Error!", JOptionPane.ERROR_MESSAGE);
+    public static boolean ComprobarTextos(JSpinner idProducto, JTextField textoNombre, JTextField textoDescripcion, JTextField textoPrecio) {
+        if ((int) idProducto.getValue() == 0 || textoNombre.getText().equals("") || textoDescripcion.getText().equals("") || textoPrecio.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Todos los datos deben estar completos y el id debe ser mayor que 0!", "Error!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
     }
 
-    public static int comprobarId(JTextField textoId) {
-        int id = -1;
-        try {
-            id = Integer.parseInt(textoId.getText());
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El id tiene que ser un numero!", "Error!", JOptionPane.ERROR_MESSAGE);
-
-        }
-        return id;
-    }
 
     public static String comprobarDescripcion(String descripcion) {
         if (descripcion.length() > 20) {
             JOptionPane.showMessageDialog(null, "La descripcion es muy larga!", "Error!", JOptionPane.ERROR_MESSAGE);
-
             return " ";
         }
         return descripcion;
@@ -91,7 +79,7 @@ public class crearProducto extends JFrame {
     public static double comprobarPrecio(JTextField textoPrecio) {
         double precio = -1;
         try {
-            precio = Integer.parseInt(textoPrecio.getText());
+            precio = Double.parseDouble(textoPrecio.getText());
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El precio tiene que ser un numero!", "Error!", JOptionPane.ERROR_MESSAGE);

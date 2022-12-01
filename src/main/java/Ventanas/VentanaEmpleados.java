@@ -24,7 +24,15 @@ public class VentanaEmpleados extends JFrame {
         crearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new CrearEmpleado();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
             }
         });
         modificarButton.addActionListener(new ActionListener() {

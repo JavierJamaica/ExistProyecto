@@ -62,10 +62,10 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="e998c" class="javax.swing.JTextField" binding="textoId">
+          <component id="3a31" class="javax.swing.JSpinner" binding="idProducto">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
+                <minimum-size width="70" height="10"/>
               </grid>
             </constraints>
             <properties/>
