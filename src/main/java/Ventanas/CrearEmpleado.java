@@ -1,5 +1,7 @@
 package Ventanas;
 
+import Clases.XmlBack;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -35,7 +37,7 @@ public class CrearEmpleado extends JFrame {
                             String apellido = textoApellidos.getText();
                             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                             Date fechaContratacion = format.parse(textoFecha.getText());
-                            System.out.println("idEmpleado:" + id + "nombre: " + nombre + "apellido: " + apellido + "fecha contratacion: " + fechaContratacion.toString());
+                            XmlBack.insertarEmpleado(id, nombre, apellido, fechaContratacion);
                         }
 
                     }
