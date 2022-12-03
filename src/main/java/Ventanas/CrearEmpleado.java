@@ -1,6 +1,7 @@
 package Ventanas;
 
 import Clases.XmlBack;
+import org.xmldb.api.base.XMLDBException;
 
 import javax.swing.*;
 import java.awt.*;

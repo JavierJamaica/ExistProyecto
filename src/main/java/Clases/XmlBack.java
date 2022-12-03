@@ -24,6 +24,7 @@ import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XPathQueryService;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 /**
@@ -47,16 +48,18 @@ public class XmlBack {
             col = (Collection) DatabaseManager.getCollection(URI, usu, usuPwd);
             return col;
         } catch (XMLDBException e) {
-            System.out.println("Error al inicializar la BD eXist.");
+            JOptionPane.showMessageDialog(null, "Error al inicializar el servidor!", "Error!", JOptionPane.ERROR_MESSAGE);
             //e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            System.out.println("Error en el driver.");
+            JOptionPane.showMessageDialog(null, "Error en el driver!", "Error!", JOptionPane.ERROR_MESSAGE);
+
             //e.printStackTrace();
         } catch (InstantiationException | IllegalAccessException e) {
-            System.out.println("Error al instanciar la BD.");
+            JOptionPane.showMessageDialog(null, "Error al instanciar la BD!", "Error!", JOptionPane.ERROR_MESSAGE);
+
             //e.printStackTrace();
         } catch (InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error de tipo: " + e, "Error!", JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }
@@ -81,7 +84,8 @@ public class XmlBack {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Error en la conexión. Comprueba datos.");
+            JOptionPane.showMessageDialog(null, "Error en la conexion perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 }

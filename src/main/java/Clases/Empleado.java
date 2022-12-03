@@ -1,12 +1,14 @@
 package Clases;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Javier Jamaica
  * 01/12/2022 - 20:16
  */
-public class Empleado {
+public class Empleado implements Serializable {
     private int id;
     private String nombre;
     private String apellidos;
