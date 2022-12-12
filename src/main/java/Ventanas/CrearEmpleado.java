@@ -39,6 +39,7 @@ public class CrearEmpleado extends JFrame {
                             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                             Date fechaContratacion = format.parse(textoFecha.getText());
                             XmlBack.insertarEmpleado(id, nombre, apellido, fechaContratacion);
+                            Limpiar(textoNombre, textoApellidos, textoFecha, idEmpleado);
                         }
 
                     }
@@ -73,15 +74,11 @@ public class CrearEmpleado extends JFrame {
         return true;
     }
 
-    public static double comprobarPrecio(JTextField textoPrecio) {
-        double precio = -1;
-        try {
-            precio = Double.parseDouble(textoPrecio.getText());
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El precio tiene que ser un numero!", "Error!", JOptionPane.ERROR_MESSAGE);
-
-        }
-        return precio;
+    public static void Limpiar(JTextField textoNombre, JTextField textoDescripcion, JTextField textoPrecio, JSpinner idEmpleado) {
+        textoNombre.setText("");
+        textoDescripcion.setText("");
+        textoPrecio.setText("");
+        idEmpleado.setValue(0);
     }
+
 }

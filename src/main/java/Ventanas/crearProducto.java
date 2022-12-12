@@ -1,5 +1,7 @@
 package Ventanas;
 
+import Clases.XmlBack;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,7 +49,8 @@ public class crearProducto extends JFrame {
                             String nombre = textoNombre.getText();
                             String descripcion = textoDescripcion.getText();
                             if (!comprobarDescripcion(descripcion).equals(" ")) {
-                                System.out.println("id:" + id + "nombre: " + nombre + "precio: " + precio + "descripcion: " + descripcion);
+                                XmlBack.insertarProducto(id,nombre,descripcion,precio);
+                                Limpiar(idProducto, textoNombre, textoDescripcion, textoPrecio);
                             }
                         }
                     }
@@ -86,5 +89,12 @@ public class crearProducto extends JFrame {
 
         }
         return precio;
+    }
+
+    public static void Limpiar(JSpinner idProducto, JTextField textoNombre, JTextField textoDescripcion, JTextField textoPrecio) {
+        textoNombre.setText("");
+        textoDescripcion.setText("");
+        textoPrecio.setText("");
+        idProducto.setValue(0);
     }
 }

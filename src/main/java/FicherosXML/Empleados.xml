@@ -1,20 +1,2 @@
 <ListaEmpleados>
-  <DatosEmpleado>
-    <id>1</id>
-    <nombre>Javier</nombre>
-    <apellidos>Jamaica</apellidos>
-    <fechaContratacion>2001-02-27 23:00:00.0 UTC</fechaContratacion>
-  </DatosEmpleado>
-  <DatosEmpleado>
-    <id>2</id>
-    <nombre>Luisa</nombre>
-    <apellidos>Lopez</apellidos>
-    <fechaContratacion>1998-01-11 23:00:00.0 UTC</fechaContratacion>
-  </DatosEmpleado>
-  <DatosEmpleado>
-    <id>3</id>
-    <nombre>Miguel</nombre>
-    <apellidos>Angel</apellidos>
-    <fechaContratacion>2009-12-22 23:00:00.0 UTC</fechaContratacion>
-  </DatosEmpleado>
 </ListaEmpleados>

@@ -26,7 +26,7 @@ public class HiloCarga extends Thread {
     public void run() {
         for (int i = 0; i < progressValues.length; i++) {
             try {
-                Thread.sleep(300);
+                Thread.sleep(240);
             } catch (Exception e) {
                 e.printStackTrace();
             }
