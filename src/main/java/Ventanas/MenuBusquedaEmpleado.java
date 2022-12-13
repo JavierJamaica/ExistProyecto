@@ -98,7 +98,7 @@ public class MenuBusquedaEmpleado extends JFrame {
                 Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
                 int height = pantalla.height;
                 int width = pantalla.width;
-                JFrame frame = new VentanaBusquedas();
+                JFrame frame = new BuscarNombreEmpleado();
                 frame.setLocation(width / 3, height / 3);
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -112,7 +112,7 @@ public class MenuBusquedaEmpleado extends JFrame {
                 Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
                 int height = pantalla.height;
                 int width = pantalla.width;
-                JFrame frame = new VentanaBusquedas();
+                JFrame frame = new BuscarFechaEmpleado();
                 frame.setLocation(width / 3, height / 3);
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

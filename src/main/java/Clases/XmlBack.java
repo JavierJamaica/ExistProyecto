@@ -7,6 +7,8 @@ import org.xmldb.api.modules.XPathQueryService;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.*;
@@ -27,7 +29,6 @@ public class XmlBack {
         //Devuelve true si el dep existe
         if (conectar() != null) {
             try {
-
 
 
                 // Inicializamos el recurso
@@ -147,7 +148,7 @@ public class XmlBack {
 
     }
 
-    public static void modificarEmpleado(int id, String nuevoNombre, String nuevoApellido,Date nuevaFecha, int op) {
+    public static void modificarEmpleado(int id, String nuevoNombre, String nuevoApellido, Date nuevaFecha, int op) {
         ResourceSet result;
         if (ComprobarIdEmpleado(id)) {
             if (conectar() != null) {
@@ -221,6 +222,7 @@ public class XmlBack {
         }
 
     }
+
     public static void borrarProducto(int id) {
         if (ComprobarIdProducto(id)) {
             if (conectar() != null) {
@@ -269,6 +271,7 @@ public class XmlBack {
 
         }
     }
+
     public static void insertarProducto(int id, String nombre, String descripcion, double precio) {
 
         //Caso concreto: sabemos cuáles son los nodos
@@ -415,8 +418,127 @@ public class XmlBack {
 
     }
 
+    public static String consultarFechaEmpleado(String fecha) {
+        if (conectar() != null) {
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                Date fechaContratacion = format.parse(fecha);
+                XPathQueryService servicio;
+                servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                //Preparamos la consulta
+                ResourceSet result = servicio.query("/ListaEmpleados/DatosEmpleado[fechaContratacion='" + fechaContratacion + "']");
+                //  /ListaEmpleados/DatosEmpleado[nombre="dww"]
+                // recorrer los datos del recurso.
+                ResourceIterator i;
+                i = result.getIterator();
+                if (!i.hasMoreResources()) {
+                    JOptionPane.showMessageDialog(null, "No hay datos con esa fecha!", "Error!", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Resource r = i.nextResource();
+                    return (String) r.getContent();
+                }
+                col.close();
+            } catch (XMLDBException e) {
+                JOptionPane.showMessageDialog(null, "Error al consultar el documento!", "Error!", JOptionPane.ERROR_MESSAGE);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "La fecha debe tener el formato: dd/MM/yyyy!", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en la conexion!", "Error!", JOptionPane.ERROR_MESSAGE);
 
-    public static String consultarIdEmpleado(int id ) {
+        }
+
+        return "";
+    }
+
+
+    public static String consultarPrecioProducto(double precio) {
+        if (conectar() != null) {
+            try {
+                XPathQueryService servicio;
+                servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                //Preparamos la consulta
+                ResourceSet result = servicio.query("/ListaProductos/DatosProducto[precio=" + precio + "]");
+                // recorrer los datos del recurso.
+                ResourceIterator i;
+                i = result.getIterator();
+                if (!i.hasMoreResources()) {
+                    JOptionPane.showMessageDialog(null, "No hay datos con ese precio!", "Error!", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Resource r = i.nextResource();
+                    return (String) r.getContent();
+                }
+                col.close();
+            } catch (XMLDBException e) {
+                JOptionPane.showMessageDialog(null, "Error al consultar el documento!", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en la conexion!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+        return "";
+    }
+
+    public static String consultarNombreProducto(String nombre) {
+        if (conectar() != null) {
+            try {
+                XPathQueryService servicio;
+                servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                //Preparamos la consulta
+                ResourceSet result = servicio.query("/ListaProductos/DatosProducto[nombre='" + nombre + "']");
+                System.out.println(nombre);
+                //  /ListaEmpleados/DatosEmpleado[nombre="dww"]
+                // recorrer los datos del recurso.
+                ResourceIterator i;
+                i = result.getIterator();
+                if (!i.hasMoreResources()) {
+                    JOptionPane.showMessageDialog(null, "No hay datos con ese nombre!", "Error!", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Resource r = i.nextResource();
+                    return (String) r.getContent();
+                }
+                col.close();
+            } catch (XMLDBException e) {
+                JOptionPane.showMessageDialog(null, "Error al consultar el documento!", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en la conexion!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+        return "";
+    }
+
+    public static String consultarNombreEmpleado(String nombre) {
+        if (conectar() != null) {
+            try {
+                XPathQueryService servicio;
+                servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                //Preparamos la consulta
+                ResourceSet result = servicio.query("/ListaEmpleados/DatosEmpleado[nombre='" + nombre + "']");
+                // recorrer los datos del recurso.
+                ResourceIterator i;
+                i = result.getIterator();
+                if (!i.hasMoreResources()) {
+                    JOptionPane.showMessageDialog(null, "No hay datos insertados!", "Error!", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Resource r = i.nextResource();
+                    return (String) r.getContent();
+                }
+                col.close();
+            } catch (XMLDBException e) {
+                JOptionPane.showMessageDialog(null, "Error al consultar el documento!", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en la conexion!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+        }
+        return "";
+
+    }
+
+    public static String consultarIdEmpleado(int id) {
         if (ComprobarIdEmpleado(id)) {
             if (conectar() != null) {
                 try {
