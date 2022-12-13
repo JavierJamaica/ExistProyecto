@@ -40,22 +40,28 @@ public class crearProducto extends JFrame {
         crearRegistroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ComprobarTextos(idProducto, textoNombre, textoDescripcion, textoPrecio)) {
-                    int id = (int) idProducto.getValue();
-                    if (id != -1) {
-                        double precio = comprobarPrecio(textoPrecio);
+                if (!XmlBack.ComprobarIdProducto((int) idProducto.getValue())) {
+                    if (ComprobarTextos(idProducto, textoNombre, textoDescripcion, textoPrecio)) {
+                        int id = (int) idProducto.getValue();
+                        if (id != -1) {
+                            double precio = comprobarPrecio(textoPrecio);
 
-                        if (precio != -1) {
-                            String nombre = textoNombre.getText();
-                            String descripcion = textoDescripcion.getText();
-                            if (!comprobarDescripcion(descripcion).equals(" ")) {
-                                XmlBack.insertarProducto(id,nombre,descripcion,precio);
-                                Limpiar(idProducto, textoNombre, textoDescripcion, textoPrecio);
+                            if (precio != -1) {
+                                String nombre = textoNombre.getText();
+                                String descripcion = textoDescripcion.getText();
+                                if (!comprobarDescripcion(descripcion).equals(" ")) {
+                                    XmlBack.insertarProducto(id, nombre, descripcion, precio);
+                                    Limpiar(idProducto, textoNombre, textoDescripcion, textoPrecio);
+                                }
                             }
                         }
+
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Este id ya lo tiene un producto, pruebe con otro!", "Cuidado!", JOptionPane.WARNING_MESSAGE);
 
                 }
+
 
             }
         });

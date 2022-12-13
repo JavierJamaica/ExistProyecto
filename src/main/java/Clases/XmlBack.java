@@ -387,7 +387,7 @@ public class XmlBack {
         return "";
     }
 
-    private static boolean ComprobarIdProducto(int id) {
+    public static boolean ComprobarIdProducto(int id) {
         //Devuelve true si el dep existe
         if (conectar() != null) {
             try {
@@ -448,7 +448,7 @@ public class XmlBack {
         return "";
     }
 
-    private static boolean ComprobarIdEmpleado(int id) {
+    public static boolean ComprobarIdEmpleado(int id) {
         if (conectar() != null) {
             try {
                 XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");

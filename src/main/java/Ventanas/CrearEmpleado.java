@@ -31,18 +31,24 @@ public class CrearEmpleado extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (ComprobarTextos(textoNombre, textoApellidos, textoFecha, idEmpleado)) {
-                        int id = (int) idEmpleado.getValue();
-                        if (id != -1) {
-                            String nombre = textoNombre.getText();
-                            String apellido = textoApellidos.getText();
-                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                            Date fechaContratacion = format.parse(textoFecha.getText());
-                            XmlBack.insertarEmpleado(id, nombre, apellido, fechaContratacion);
-                            Limpiar(textoNombre, textoApellidos, textoFecha, idEmpleado);
+                    if (!XmlBack.ComprobarIdEmpleado((int) idEmpleado.getValue())) {
+                        if (ComprobarTextos(textoNombre, textoApellidos, textoFecha, idEmpleado)) {
+                            int id = (int) idEmpleado.getValue();
+                            if (id != -1) {
+                                String nombre = textoNombre.getText();
+                                String apellido = textoApellidos.getText();
+                                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                                Date fechaContratacion = format.parse(textoFecha.getText());
+                                XmlBack.insertarEmpleado(id, nombre, apellido, fechaContratacion);
+                                Limpiar(textoNombre, textoApellidos, textoFecha, idEmpleado);
+                            }
+
                         }
+                    }else {
+                        JOptionPane.showMessageDialog(null, "Este id ya lo tiene un empleado, pruebe con otro!", "Cuidado!", JOptionPane.WARNING_MESSAGE);
 
                     }
+
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null, "Error la fecha tiene que ser con el formato: dd/MM/yyyy!", "Error!", JOptionPane.ERROR_MESSAGE);
                 }
