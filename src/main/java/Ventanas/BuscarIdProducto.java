@@ -16,7 +16,6 @@ public class BuscarIdProducto extends JFrame {
     private JPanel contenedorPrincipal;
     private JSpinner id;
     private JButton buscarButton;
-    private JTable tablaProductos;
     private JButton atrasButton;
     private JTextArea tabla;
 
@@ -25,8 +24,8 @@ public class BuscarIdProducto extends JFrame {
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!XmlBack.consultarId((int) id.getValue()).equals("")) {
-                    tabla.setText(XmlBack.consultarId((int) id.getValue()));
+                if (!XmlBack.consultarIdProductos((int) id.getValue()).equals("")) {
+                    tabla.setText(XmlBack.consultarIdProductos((int) id.getValue()));
 
                 }
 

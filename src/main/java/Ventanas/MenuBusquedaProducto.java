@@ -71,12 +71,6 @@ public class MenuBusquedaProducto extends JFrame {
         verButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        verButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
                 ResourceIterator i =  XmlBack.consultarProductos();
                 String datos = "";
                 try {

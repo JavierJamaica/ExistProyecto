@@ -1,5 +1,10 @@
 package Ventanas;
 
+import Clases.XmlBack;
+import org.xmldb.api.base.Resource;
+import org.xmldb.api.base.ResourceIterator;
+import org.xmldb.api.base.XMLDBException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +20,10 @@ public class MenuBusquedaEmpleado extends JFrame {
     private JButton nombreButton;
     private JButton fechaButton;
     private JButton atrasButton;
-public MenuBusquedaEmpleado() {
+    private JTextArea textArea1;
+    private JButton verButton;
+
+    public MenuBusquedaEmpleado()  {
     setContentPane(contenedorPrincipal);
     idButton.addActionListener(new ActionListener() {
         @Override
@@ -49,5 +57,82 @@ public MenuBusquedaEmpleado() {
             dispose();
         }
     });
-}
+        verButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ResourceIterator i =  XmlBack.consultarEmpleados();
+                String datos = "";
+                try {
+
+                    if (i!=null) {
+                        while (i.hasMoreResources()) {
+                            Resource r = i.nextResource();
+                            datos = datos +"\n"+ (String) r.getContent();
+                            System.out.println((String) r.getContent());
+                        }
+                        textArea1.setText(datos);
+                    }
+
+                } catch (XMLDBException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        idButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new BuscarIdEmpleado();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
+        nombreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new VentanaBusquedas();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
+        fechaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new VentanaBusquedas();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
+        atrasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new VentanaBusquedas();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
+    }
 }

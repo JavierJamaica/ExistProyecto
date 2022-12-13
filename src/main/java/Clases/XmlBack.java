@@ -96,34 +96,10 @@ public class XmlBack {
         return null;
     }
 
-    public static void insertarEmpleado(int id, String nombre, String apellido, Date fechaContratacion) {
-
-        //Caso concreto: sabemos cuáles son los nodos
-        String nuevoEmpleado = "<DatosEmpleado><id>" + id + "</id>"
-                + "<nombre>" + nombre + "</nombre><apellido>" + apellido + "</apellido>" + "<fechaContratacion>" + fechaContratacion
-                + "</fechaContratacion>" + "</DatosEmpleado>\n";
-
-        if (conectar() != null) {
-            try {
-                XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Consulta para insertar --> update insert ... into
-                String result = "update insert " + nuevoEmpleado + " into /ListaEmpleados";
-                servicio.setProperty("indent", "yes");
-                servicio.query(result);
-                col.close(); //borramos
-                JOptionPane.showMessageDialog(null, "Empleado insertado", "Insertado!", JOptionPane.PLAIN_MESSAGE);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al insertar el empledado", "Error!", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Error en la conexion perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
-
-        }
-    }
 
     public static void modificarProducto(int id, String nuevoNombre, double nuevoPrecio, String nuevaDescripcion, int op) {
         ResourceSet result;
-        if (ComprobarId(id)) {
+        if (ComprobarIdProducto(id)) {
             if (conectar() != null) {
                 try {
                     XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
@@ -171,8 +147,82 @@ public class XmlBack {
 
     }
 
+    public static void modificarEmpleado(int id, String nuevoNombre, String nuevoApellido,Date nuevaFecha, int op) {
+        ResourceSet result;
+        if (ComprobarIdEmpleado(id)) {
+            if (conectar() != null) {
+                try {
+                    XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                    switch (op) {
+                        case 1 -> {
+
+                            //Consulta para modificar/actualizar un valor --> update value
+                            result = servicio.query(
+                                    "update value //*[id=" + id + "]/nombre with '" + nuevoNombre + "'");
+                            //update value //*[id="2"]/nombre with "dd"
+
+                            JOptionPane.showMessageDialog(null, "Empleado actualizado!", "Actualizado!!", JOptionPane.PLAIN_MESSAGE);
+                            col.close();
+                        }
+                        case 2 -> {
+                            result = servicio.query(
+                                    "update value //*[id=" + id + "]/apellido with '" + nuevoApellido + "'");
+
+                            JOptionPane.showMessageDialog(null, "Empleado actualizado!", "Actualizado!!", JOptionPane.PLAIN_MESSAGE);
+                            col.close();
+                        }
+                        case 3 -> {
+
+                            result = servicio.query(
+                                    "update value //*[id=" + id + "]/fechaContratacion with '" + nuevaFecha + "'");
+
+                            JOptionPane.showMessageDialog(null, "Empleado actualizado!", "Actualizado!!", JOptionPane.PLAIN_MESSAGE);
+                            col.close();
+                        }
+                        default ->
+                                JOptionPane.showMessageDialog(null, "Error interno!", "Error!", JOptionPane.ERROR_MESSAGE);
+                    }
+
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error al actualizar el producto!", "Error!", JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en la conexion perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El empleado no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+    }
+
+    public static void borrarEmpleado(int id) {
+        if (ComprobarIdEmpleado(id)) {
+            if (conectar() != null) {
+                try {
+                    XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                    //Consulta para borrar un departamento --> update delete
+                    ResourceSet result = servicio.query(
+                            "update delete //DatosEmpleado[id=" + id + "]");
+                    col.close();
+                    JOptionPane.showMessageDialog(null, "Empleado borrado!", "Borrado!", JOptionPane.PLAIN_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error al borrar", "Borrado!", JOptionPane.PLAIN_MESSAGE);
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en la conexion perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Empleado no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+    }
     public static void borrarProducto(int id) {
-        if (ComprobarId(id)) {
+        if (ComprobarIdProducto(id)) {
             if (conectar() != null) {
                 try {
                     XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
@@ -195,6 +245,30 @@ public class XmlBack {
 
     }
 
+    public static void insertarEmpleado(int id, String nombre, String apellido, Date fechaContratacion) {
+
+        //Caso concreto: sabemos cuáles son los nodos
+        String nuevoEmpleado = "<DatosEmpleado><id>" + id + "</id>"
+                + "<nombre>" + nombre + "</nombre><apellido>" + apellido + "</apellido>" + "<fechaContratacion>" + fechaContratacion
+                + "</fechaContratacion>" + "</DatosEmpleado>\n";
+
+        if (conectar() != null) {
+            try {
+                XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                //Consulta para insertar --> update insert ... into
+                String result = "update insert " + nuevoEmpleado + " into /ListaEmpleados";
+                servicio.setProperty("indent", "yes");
+                servicio.query(result);
+                col.close(); //borramos
+                JOptionPane.showMessageDialog(null, "Empleado insertado", "Insertado!", JOptionPane.PLAIN_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al insertar el empledado", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en la conexion perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }
     public static void insertarProducto(int id, String nombre, String descripcion, double precio) {
 
         //Caso concreto: sabemos cuáles son los nodos
@@ -223,19 +297,19 @@ public class XmlBack {
         }
     }
 
-    public static ResourceIterator consultarProductos() {
+    public static ResourceIterator consultarEmpleados() {
         if (conectar() != null) {
             try {
                 XPathQueryService servicio;
                 servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
                 //Preparamos la consulta
-                ResourceSet result = servicio.query("/ListaProductos/DatosProducto");
+                ResourceSet result = servicio.query("/ListaEmpleados/DatosEmpleado");
 
                 // recorrer los datos del recurso.
                 ResourceIterator i;
                 i = result.getIterator();
                 if (!i.hasMoreResources()) {
-                    JOptionPane.showMessageDialog(null, "La consulta no devuelve nada perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No hay datos insertados!", "Error!", JOptionPane.ERROR_MESSAGE);
                 } else {
                     return i;
 
@@ -252,8 +326,37 @@ public class XmlBack {
         return null;
     }
 
-    public static String consultarId(int id) {
-        if (ComprobarId(id)) {
+    public static ResourceIterator consultarProductos() {
+        if (conectar() != null) {
+            try {
+                XPathQueryService servicio;
+                servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                //Preparamos la consulta
+                ResourceSet result = servicio.query("/ListaProductos/DatosProducto");
+
+                // recorrer los datos del recurso.
+                ResourceIterator i;
+                i = result.getIterator();
+                if (!i.hasMoreResources()) {
+                    JOptionPane.showMessageDialog(null, "No hay datos insertados!", "Error!", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    return i;
+
+                }
+                col.close();
+            } catch (XMLDBException e) {
+                JOptionPane.showMessageDialog(null, "Error al consultar el documento!", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en la conexion!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+        return null;
+    }
+
+    public static String consultarIdProductos(int id) {
+        if (ComprobarIdProducto(id)) {
             if (conectar() != null) {
                 try {
                     XPathQueryService servicio;
@@ -265,7 +368,7 @@ public class XmlBack {
                     ResourceIterator i;
                     i = result.getIterator();
                     if (!i.hasMoreResources()) {
-                        JOptionPane.showMessageDialog(null, "La consulta no devuelve nada perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "No hay datos insertados!", "Error!", JOptionPane.ERROR_MESSAGE);
                     } else {
                         Resource r = i.nextResource();
                         return (String) r.getContent();
@@ -284,7 +387,7 @@ public class XmlBack {
         return "";
     }
 
-    private static boolean ComprobarId(int id) {
+    private static boolean ComprobarIdProducto(int id) {
         //Devuelve true si el dep existe
         if (conectar() != null) {
             try {
@@ -313,6 +416,63 @@ public class XmlBack {
     }
 
 
+    public static String consultarIdEmpleado(int id ) {
+        if (ComprobarIdEmpleado(id)) {
+            if (conectar() != null) {
+                try {
+                    XPathQueryService servicio;
+                    servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                    //Preparamos la consulta
+                    ResourceSet result = servicio.query("/ListaEmpleados/DatosEmpleado[id=" + id + "]");
+
+                    // recorrer los datos del recurso.
+                    ResourceIterator i;
+                    i = result.getIterator();
+                    if (!i.hasMoreResources()) {
+                        JOptionPane.showMessageDialog(null, "No hay datos insertados!", "Error!", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        Resource r = i.nextResource();
+                        return (String) r.getContent();
+                    }
+                    col.close();
+                } catch (XMLDBException e) {
+                    JOptionPane.showMessageDialog(null, "Error al consultar el documento!", "Error!", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en la conexion!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El empleado no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+        return "";
+    }
+
+    private static boolean ComprobarIdEmpleado(int id) {
+        if (conectar() != null) {
+            try {
+                XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                //Consulta para consultar la información de un departamento
+                ResourceSet result = servicio.query("/ListaEmpleados/DatosEmpleado[id=" + id + "]");
+                ResourceIterator i;
+                i = result.getIterator();
+                col.close();
+                if (!i.hasMoreResources()) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al consultar con ese id!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+                // e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en la conexion perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return false;
+    }
 }
 
 

@@ -9,22 +9,24 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Javier Jamaica
- * 09/12/2022 - 20:20
+ * 13/12/2022 - 4:49
  */
-public class BuscarIdEmpleado extends JFrame {
-    private JPanel contenedorPrincipal;
-    private JTextArea textArea1;
+public class BorrarEmpleado extends JFrame {
     private JSpinner spinner1;
-    private JButton buscarButton;
+    private JButton borrarButton;
     private JButton atrasButton;
+    private JPanel contenedorPrincipal;
 
-    public BuscarIdEmpleado() {
+    public BorrarEmpleado() {
         setContentPane(contenedorPrincipal);
-        buscarButton.addActionListener(new ActionListener() {
+        borrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!XmlBack.consultarIdEmpleado((int) spinner1.getValue()).equals("")) {
-                    textArea1.setText(XmlBack.consultarIdEmpleado((int) spinner1.getValue()));
+                if ((int) spinner1.getValue() != 0) {
+                    XmlBack.borrarEmpleado((int) spinner1.getValue());
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "El id no puede ser igual a 0!", "Error!", JOptionPane.ERROR_MESSAGE);
 
                 }
             }
@@ -35,7 +37,7 @@ public class BuscarIdEmpleado extends JFrame {
                 Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
                 int height = pantalla.height;
                 int width = pantalla.width;
-                JFrame frame = new MenuBusquedaEmpleado();
+                JFrame frame = new VentanaProductos();
                 frame.setLocation(width / 3, height / 3);
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
