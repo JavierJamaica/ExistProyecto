@@ -16,7 +16,6 @@ import javax.swing.*;
  * 20/11/2022 - 17:01
  */
 public class XmlBack {
-    public static final String nombrefichero = "AleatorioEmple.dat"; //Si tuviéramos que usar un fichero
     static String driver = "org.exist.xmldb.DatabaseImpl"; //Driver para eXist
     static String URI = "xmldb:exist://localhost:8081/exist/xmlrpc/db/Proyecto/FicherosXML"; //URI colección
     static String usu = "admin"; //Usuario
@@ -24,12 +23,13 @@ public class XmlBack {
     static Collection col = null;
 
 
-
-    public static void cargar_en_coleccion() throws XMLDBException  {
+    public static void cargar_en_coleccion() throws XMLDBException {
         //Devuelve true si el dep existe
         if (conectar() != null) {
             try {
-                System.out.print("Conecta");
+
+
+
                 // Inicializamos el recurso
                 XMLResource res = null;
                 XMLResource res2 = null;
@@ -38,9 +38,9 @@ public class XmlBack {
                 // Creamos el recurso -> recibe 2 parámetros tipo String:
                 // s: nombre.xml (si lo dejamos null, pondrá un nombre aleatorio)
                 // s1: tipo recurso (en este caso, siempre será XMLResource)
-                res = (XMLResource)col.createResource("Productos.xml", "XMLResource");
-                res2 = (XMLResource)col.createResource("Empleados.xml", "XMLResource");
-                res3 = (XMLResource)col.createResource("Pedidos.xml", "XMLResource");
+                res = (XMLResource) col.createResource("Productos.xml", "XMLResource");
+                res2 = (XMLResource) col.createResource("Empleados.xml", "XMLResource");
+                res3 = (XMLResource) col.createResource("Pedidos.xml", "XMLResource");
 
                 // Elegimos el fichero .xml que queremos añadir a la colección
                 File f = new File(".//src/main/java/FicherosXML/Productos.xml");
@@ -58,7 +58,7 @@ public class XmlBack {
                 col.storeResource(res3); // lo añadimos a la colección
 
                 // Listamos la colección para ver que en efecto se ha añadido
-                for (String colRe: col.listResources())
+                for (String colRe : col.listResources())
                     System.out.println(colRe);
 
                 col.close();
@@ -106,20 +106,93 @@ public class XmlBack {
         if (conectar() != null) {
             try {
                 XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                System.out.printf("Inserto: %s \n", nuevoEmpleado);
                 //Consulta para insertar --> update insert ... into
                 String result = "update insert " + nuevoEmpleado + " into /ListaEmpleados";
                 servicio.setProperty("indent", "yes");
                 servicio.query(result);
                 col.close(); //borramos
-                System.out.println("Empleado insertado.");
+                JOptionPane.showMessageDialog(null, "Empleado insertado", "Insertado!", JOptionPane.PLAIN_MESSAGE);
             } catch (Exception e) {
-                System.out.println("Error al insertar empleado.");
+                JOptionPane.showMessageDialog(null, "Error al insertar el empledado", "Error!", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Error en la conexion perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
 
         }
+    }
+
+    public static void modificarProducto(int id, String nuevoNombre, double nuevoPrecio, String nuevaDescripcion, int op) {
+        ResourceSet result;
+        if (ComprobarId(id)) {
+            if (conectar() != null) {
+                try {
+                    XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                    switch (op) {
+                        case 1 -> {
+
+                            //Consulta para modificar/actualizar un valor --> update value
+                            result = servicio.query(
+                                    "update value //*[id=" + id + "]/nombre with '" + nuevoNombre + "'");
+                            //update value //*[id="2"]/nombre with "dd"
+
+                            JOptionPane.showMessageDialog(null, "Producto actualizado!", "Actualizado!!", JOptionPane.PLAIN_MESSAGE);
+                            col.close();
+                        }
+                        case 2 -> {
+                            result = servicio.query(
+                                    "update value //*[id=" + id + "]/descripcion with '" + nuevaDescripcion + "'");
+
+                            JOptionPane.showMessageDialog(null, "Producto actualizado!", "Actualizado!!", JOptionPane.PLAIN_MESSAGE);
+                            col.close();
+                        }
+                        case 3 -> {
+                            result = servicio.query(
+                                    "update value //*[id=" + id + "]/precio with '" + nuevoPrecio + "'");
+
+                            JOptionPane.showMessageDialog(null, "Producto actualizado!", "Actualizado!!", JOptionPane.PLAIN_MESSAGE);
+                            col.close();
+                        }
+                        default ->
+                                JOptionPane.showMessageDialog(null, "Error interno!", "Error!", JOptionPane.ERROR_MESSAGE);
+                    }
+
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error al actualizar el producto!", "Error!", JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en la conexion perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El producto no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+    }
+
+    public static void borrarProducto(int id) {
+        if (ComprobarId(id)) {
+            if (conectar() != null) {
+                try {
+                    XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+                    //Consulta para borrar un departamento --> update delete
+                    ResourceSet result = servicio.query(
+                            "update delete //DatosProducto[id=" + id + "]");
+                    col.close();
+                    JOptionPane.showMessageDialog(null, "Producto borrado!", "Borrado!", JOptionPane.PLAIN_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error al borrar", "Borrado!", JOptionPane.PLAIN_MESSAGE);
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en la conexion perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Producto no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+        }
+
     }
 
     public static void insertarProducto(int id, String nombre, String descripcion, double precio) {
@@ -139,9 +212,9 @@ public class XmlBack {
                 servicio.query(result);
 
                 col.close(); //borramos
-                System.out.println("Producto insertado.");
+                JOptionPane.showMessageDialog(null, "Producto insertado!", "Insertado!", JOptionPane.PLAIN_MESSAGE);
             } catch (Exception e) {
-                System.out.println("Error al insertar producto.");
+                JOptionPane.showMessageDialog(null, "Error al insertar el producto!", "Error!", JOptionPane.ERROR_MESSAGE);
 
             }
         } else {
@@ -164,7 +237,7 @@ public class XmlBack {
                 if (!i.hasMoreResources()) {
                     JOptionPane.showMessageDialog(null, "La consulta no devuelve nada perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
                 } else {
-                   return i;
+                    return i;
 
                 }
                 col.close();
@@ -199,7 +272,7 @@ public class XmlBack {
                     }
                     col.close();
                 } catch (XMLDBException e) {
-                    JOptionPane.showMessageDialog(null, "Error al consultarel documento!", "Error!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error al consultar el documento!", "Error!", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Error en la conexion!", "Error!", JOptionPane.ERROR_MESSAGE);

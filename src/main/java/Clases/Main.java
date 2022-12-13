@@ -15,7 +15,7 @@ import java.text.ParseException;
  */
 public class Main {
     public static void main(String[] args) throws IOException, ParseException, XMLDBException {
-        int ventanaYesNotCancel = JOptionPane.showConfirmDialog(null, "¿Deseas reiniciar la base de datos?", "Mi programa pai", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        int ventanaYesNotCancel = JOptionPane.showConfirmDialog(null, "Si es la primera vez que inicias la aplicacion o deseas reinicar la base de datos dale a yes!", "Mi programa pai", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (ventanaYesNotCancel == 0) {
             Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
             int height = pantalla.height;

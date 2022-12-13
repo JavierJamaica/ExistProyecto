@@ -84,7 +84,7 @@ public class MenuBusquedaProducto extends JFrame {
                     if (i!=null) {
                         while (i.hasMoreResources()) {
                             Resource r = i.nextResource();
-                            datos = datos + "\n" + (String) r.getContent();
+                            datos = datos +"\n"+ (String) r.getContent();
                             System.out.println((String) r.getContent());
                         }
                         textArea1.setText(datos);
