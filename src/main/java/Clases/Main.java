@@ -15,6 +15,8 @@ import java.text.ParseException;
  */
 public class Main {
     /**
+     * Los datos para acceder a exist estan en XmlBack al principio de la clase
+     * <p>
      * Funcion principal para ejecutar la aplicacion, muestra una ventana emergente dependiendo de la opcion elegida
      * llamara a la ventana de carga para reinicar los xml de exist o a la ventana principal para usar la apliacion
      *
