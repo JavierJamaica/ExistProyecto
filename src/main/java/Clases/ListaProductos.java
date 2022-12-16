@@ -10,12 +10,22 @@ import java.util.List;
 public class ListaProductos {
     private List<Producto> lista = new ArrayList<>();
 
+    /**
+     * Constructor vacio de ListaProductos
+     */
     public ListaProductos() {
     }
 
+    /**
+     * @param producto se usa para guardarlo en la lista
+     */
     public void add(Producto producto) {
         lista.add(producto);
     }
+
+    /**
+     * @return devuelve la lista con los productos guardados
+     */
 
     public List<Producto> getListaProductos() {
         return lista;

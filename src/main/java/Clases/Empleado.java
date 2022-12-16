@@ -33,6 +33,7 @@ public class Empleado implements Serializable {
 
     /**
      * Getter del id del empleado
+     *
      * @return devuelve el id del empleado
      */
     public int getId() {
@@ -41,6 +42,7 @@ public class Empleado implements Serializable {
 
     /**
      * Setter del id del empelado
+     *
      * @param id asigna el id del empleado por medio del parametro recibido
      */
     public void setId(int id) {
@@ -48,41 +50,62 @@ public class Empleado implements Serializable {
     }
 
     /**
+     * Getter del atributo nombre del empleado
      *
-     * @return
+     * @return devuelve el nombre del empleado
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
+     * Setter del atributo nombre
      *
-     * @param nombre
+     * @param nombre asigna este parametro al nombre del empleado
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
+     * Getter del atributo apellido del empleado
      *
-     * @return
+     * @return nos devuelve el apellido del empleado
      */
     public String getApellidos() {
         return apellidos;
     }
 
+    /**
+     * Setter del apellido del empleado
+     *
+     * @param apellidos recibe un apellido que se asigna al empleado
+     */
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
 
+    /**
+     * Getter de la fecha de contratacion del empleado
+     *
+     * @return devuelve la fecha de contratacion del empleado
+     */
     public Date getFechaContratacion() {
         return fechaContratacion;
     }
 
+    /**
+     * Setter de la fecha del empleado
+     *
+     * @param fechaContratacion asigna la fecha del empleado
+     */
     public void setFechaContratacion(Date fechaContratacion) {
         this.fechaContratacion = fechaContratacion;
     }
 
+    /**
+     * @return devuelve todos los atributos del empleado
+     */
     @Override
     public String toString() {
         return id +

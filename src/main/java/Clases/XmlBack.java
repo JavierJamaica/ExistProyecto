@@ -20,13 +20,21 @@ import javax.swing.*;
  * 20/11/2022 - 17:01
  */
 public class XmlBack {
+    /**
+     * Valores estaticos de Exist-Db para poder usarlo
+     */
     static String driver = "org.exist.xmldb.DatabaseImpl"; //Driver para eXist
     static String URI = "xmldb:exist://localhost:8081/exist/xmlrpc/db/Proyecto/FicherosXML"; //URI colección
     static String usu = "admin"; //Usuario
     static String usuPwd = "12345Abcde"; //Clave
     static Collection col = null;
 
-
+    /**
+     * Cargar en coleccion la usamos en la ventana de carga para reiniciar los Xml de FicherosXML en exist
+     * asi no metemos los xml de forma manual
+     *
+     * @throws XMLDBException excepcion de la libreria xmldb-api-20021118
+     */
     public static void cargar_en_coleccion() throws XMLDBException {
         //Devuelve true si el dep existe
         if (conectar() != null) {
@@ -74,6 +82,11 @@ public class XmlBack {
         }
     }
 
+    /**
+     * FUncion que usamos para conectarnos con la bd en exist
+     *
+     * @return devuelve una coleccion para poder manipularla desde la aplicacion y guardar los cambios en exist
+     */
     public static Collection conectar() {
 
         try {
@@ -99,7 +112,13 @@ public class XmlBack {
         return null;
     }
 
-
+    /**
+     * @param id               recibe un id para identificar el producto
+     * @param nuevoNombre      recibe un nombre para modificarlo en el xml
+     * @param nuevoPrecio      recibe un precio para modificarlo en el xml
+     * @param nuevaDescripcion recibe una descripcion para modificarla en el xml
+     * @param op               parametro que uso identificar que voy a modificar
+     */
     public static void modificarProducto(int id, String nuevoNombre, double nuevoPrecio, String nuevaDescripcion, int op) {
         ResourceSet result;
         if (ComprobarIdProducto(id)) {
@@ -150,6 +169,13 @@ public class XmlBack {
 
     }
 
+    /**
+     * @param id            recibe un id para identificar al empleado
+     * @param nuevoNombre   recibe un nombre para modificarlo en el xml
+     * @param nuevoApellido recibe un apellido para modificarlo en el xml
+     * @param nuevaFecha    recibe una fecha para modificarla en el xml
+     * @param op            parametro que uso identificar que voy a modificar
+     */
     public static void modificarEmpleado(int id, String nuevoNombre, String nuevoApellido, Date nuevaFecha, int op) {
         ResourceSet result;
         if (ComprobarIdEmpleado(id)) {
@@ -201,6 +227,11 @@ public class XmlBack {
 
     }
 
+    /**
+     * Funcion para eliminar en exist un empleado
+     *
+     * @param id recibo un id para poder identificar que empleado borrar
+     */
     public static void borrarEmpleado(int id) {
         if (ComprobarIdEmpleado(id)) {
             if (conectar() != null) {
@@ -225,6 +256,11 @@ public class XmlBack {
 
     }
 
+    /**
+     * Funcion para eliminar en exist un producto
+     *
+     * @param id recibo un id para poder identificar que producto borrar
+     */
     public static void borrarProducto(int id) {
         if (ComprobarIdProducto(id)) {
             if (conectar() != null) {
@@ -248,6 +284,16 @@ public class XmlBack {
         }
 
     }
+
+    /**
+     * Funcion para insertar un empleado
+     *
+     * @param id                recibo un id que es unico para insertarlo en exist
+     * @param nombre            recibo un nombre para asignarlo en el empleado
+     * @param apellido          recibo un apellido para asignarlo en el empleado
+     * @param fechaContratacion recibo una fecha de tipo date para asegurarnos de que es una fecha para asignarlo en el
+     *                          empleado
+     */
 
     public static void insertarEmpleado(int id, String nombre, String apellido, Date fechaContratacion) {
 
@@ -274,6 +320,14 @@ public class XmlBack {
         }
     }
 
+    /**
+     * Funcion para guardar un producto en exist
+     *
+     * @param id          recibo un id que es unico para asignarlo al producto
+     * @param nombre      recibo un nombre para asignarlo en el producto
+     * @param descripcion recibo una descripcion para asignarla en el producto
+     * @param precio      recibo un precio para asignarlo en el producto
+     */
     public static void insertarProducto(int id, String nombre, String descripcion, double precio) {
 
         //Caso concreto: sabemos cuáles son los nodos
@@ -302,7 +356,12 @@ public class XmlBack {
         }
     }
 
-
+    /**
+     * Funcion para consultar por id los productos
+     *
+     * @param id recibe el id por el cual buscar el producto
+     * @return nos devuelve una lista de productos, que contiene solo uno
+     */
     public static List<Producto> consultarIdProductos(int id) {
         if (ComprobarIdProducto(id)) {
             List<Producto> productos = new ArrayList<>();
@@ -343,6 +402,12 @@ public class XmlBack {
         return null;
     }
 
+    /**
+     * Funcion para comprobar si el producto existe en eXist
+     *
+     * @param id recibe el id del producto a comprobar
+     * @return nos devuelve un true si existe o un false si no
+     */
     public static boolean ComprobarIdProducto(int id) {
         //Devuelve true si el dep existe
         if (conectar() != null) {
@@ -371,6 +436,13 @@ public class XmlBack {
 
     }
 
+    /**
+     * Funcion que sirve para buscar en exist un empleado mediante la fecha
+     *
+     * @param fecha de tipo date para asegurarnos de que es una fecha
+     * @return devuelve una lista de empleados que tengan en comun la fecha de contratacion
+     * @throws ParseException exepcion que salta cuando no puedo convertir la fecha de tipo String en Date
+     */
     public static List<Empleado> consultarFechaEmpleado(String fecha) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date fechaContratacion = format.parse(fecha);
@@ -410,7 +482,12 @@ public class XmlBack {
         return empleados;
     }
 
-
+    /**
+     * Funcion para buscar en eXist productos por medio del precio
+     *
+     * @param precio recibe un precio por el cual se filtraran los datos
+     * @return devuelve una lista de productos que coincidan con el precio
+     */
     public static List<Producto> consultarPrecioProducto(double precio) {
         List<Producto> productos = new ArrayList<>();
         if (conectar() != null) {
@@ -446,7 +523,12 @@ public class XmlBack {
         return productos;
     }
 
-
+    /**
+     * Funcion para consultar en eXist los productos mediante el nombre
+     *
+     * @param nombre recibe el nombre para filtar
+     * @return devuelve una lista de productos que coinciden con el nombre
+     */
     public static List<Producto> consultarNombreProducto(String nombre) {
         List<Producto> productos = new ArrayList<>();
         if (conectar() != null) {
@@ -482,6 +564,12 @@ public class XmlBack {
         return productos;
     }
 
+    /**
+     * Funcion para buscar empleados mediante el nombre
+     *
+     * @param nombre recibe un nombre para filtrar
+     * @return devuelve una lista de empelados que coincidan con el nombre
+     */
     public static List<Empleado> consultarNombreEmpleado(String nombre) {
         List<Empleado> empleados = new ArrayList<>();
         if (conectar() != null) {
@@ -520,6 +608,12 @@ public class XmlBack {
         return empleados;
     }
 
+    /**
+     * Funcion para consultar en eXist los empleados mediante el id
+     *
+     * @param id se usa para filtrar los datos
+     * @return devuelve una lista de empleados que realmente solo contendria uno
+     */
     public static List<Empleado> consultarIdEmpleado(int id) {
         if (ComprobarIdEmpleado(id)) {
             List<Empleado> empleados = new ArrayList<>();
@@ -563,6 +657,12 @@ public class XmlBack {
         return null;
     }
 
+    /**
+     * Funcion para comprobar mediante el id si existe el empleado en exist
+     *
+     * @param id recibe un que se usa para filtrar los datos
+     * @return devuelve true si existe o false si no
+     */
     public static boolean ComprobarIdEmpleado(int id) {
         if (conectar() != null) {
             try {
@@ -589,6 +689,11 @@ public class XmlBack {
         return false;
     }
 
+    /**
+     * Funcion para buscar todos los productos en exist
+     *
+     * @return devuelve una lista con todos los productos que ahi en exist
+     */
     public static List<Producto> LeerProductos() {
         List<Producto> productos = new ArrayList<>();
         if (conectar() != null) {
@@ -625,6 +730,11 @@ public class XmlBack {
 
     }
 
+    /**
+     * Funcion Due busca todos los empelados en exist
+     *
+     * @return Devuelve una lista de todos los empleados que hay en exist
+     */
     public static List<Empleado> LeerEmpleados() {
         List<Empleado> empleados = new ArrayList<>();
         if (conectar() != null) {
@@ -664,6 +774,14 @@ public class XmlBack {
         return empleados;
     }
 
+    /**
+     * Funcion para guardar pedidos en exist
+     *
+     * @param id        De tipo unico para identificar el pedido
+     * @param nombre    Due usa para asignarlo en el pedido
+     * @param empleado  Due se usa para asignarlo en el pedido
+     * @param productos Lista de productos que se usa para asignarlos en el pedido
+     */
     public static void insertarPedido(int id, String nombre, Object empleado, List<Producto> productos) {
         Empleado emp = (Empleado) empleado;
         String xmlProd = "";
@@ -703,6 +821,12 @@ public class XmlBack {
 
     }
 
+    /**
+     * Funcion que se usa para visualizar todos los pedidos en exist
+     *
+     * @return una lista de todos los pedidos que ahi en exist, los pedidos de esta lista, tienen los atributos empleado
+     * y productos nulos,
+     */
     public static List<Pedido> LeerPedido() {
         List<Pedido> pedidos = new ArrayList<>();
         if (conectar() != null) {
@@ -738,6 +862,12 @@ public class XmlBack {
 
     }
 
+    /**
+     * Funcion para buscar en exist pedidos por el nombre
+     *
+     * @param nombre recibe el nombre por el cual buscar
+     * @return devuelve una lista de pedidos que coincidan con el nombre
+     */
     public static List<Pedido> BuscarNombrePedido(String nombre) {
         List<Pedido> pedidos = new ArrayList<>();
         if (conectar() != null) {
@@ -773,6 +903,12 @@ public class XmlBack {
 
     }
 
+    /**
+     * Funcion para consuiltar los productos de un pedido
+     *
+     * @param idPe recibe el id del producto el cual ver los productos
+     * @return devuelve una lista de objetos de tipo Productos que luego se usara para mostrarlos
+     */
     public static List<Producto> consultarProdsPedido(int idPe) {
         List<Producto> productos = new ArrayList<>();
         if (ComprobarIdPedido(idPe)) {
@@ -843,6 +979,12 @@ public class XmlBack {
 
     }
 
+    /**
+     * Funcion para buscar el empleado de un pedido en exist
+     *
+     * @param idPe recibe el id del pedido
+     * @return devuelve un objeto de tipo empleado
+     */
     public static Empleado consultarEmpPedido(int idPe) {
         Empleado emp = null;
 
@@ -884,7 +1026,11 @@ public class XmlBack {
         return emp;
     }
 
-
+    /**
+     * Funcion para eliminar pedidos mediante el id
+     *
+     * @param id de tipo unico para encontrar el pedido en cuestion
+     */
     public static void borrarPedido(int id) {
         if (ComprobarIdPedido(id)) {
             if (conectar() != null) {
@@ -909,6 +1055,12 @@ public class XmlBack {
 
     }
 
+    /**
+     * Funcion para comprobar si el pedido existe en exist
+     *
+     * @param id recibe el id para filtrar
+     * @return devuelve true si existe o false si no
+     */
     public static boolean ComprobarIdPedido(int id) {
         //Devuelve true si el dep existe
         if (conectar() != null) {
@@ -937,6 +1089,13 @@ public class XmlBack {
 
     }
 
+    /**
+     * Funciin oara modificar el empleado de un pedido
+     *
+     * @param id            recibe el id del pedido a modificar
+     * @param nuevoEmpleado recibe un objeto de tipo empleado el cual es nuevo a asginar
+     * @param op            valor que nos asegura la modificacion en exist
+     */
     public static void modificarPedidoEmp(int id, Object nuevoEmpleado, int op) {
         Empleado emp = (Empleado) nuevoEmpleado;
         ResourceSet result;
@@ -1004,6 +1163,12 @@ public class XmlBack {
 
     }
 
+    /**
+     * Funcion para buscar pedidos meadiante el id en exist
+     *
+     * @param id para filtrarlo en exist
+     * @return devuelve una lista de pedidos, aunque realmente solo contendra uno
+     */
     public static List<Pedido> consultarIdPedido(int id) {
         if (ComprobarIdPedido(id)) {
             List<Pedido> pedidos = new ArrayList<>();
@@ -1045,7 +1210,13 @@ public class XmlBack {
         return null;
     }
 
-
+    /**
+     * Funcion para modificar el nombre del pedido
+     *
+     * @param id          se usa para filtrar que pedido modificar
+     * @param nuevoNombre se usa para asignar el nuevo nombre del pedido
+     * @param op          valor que nos asegura la modificacion
+     */
     public static void modificarPedido(int id, String nuevoNombre, int op) {
         ResourceSet result;
         if (ComprobarIdPedido(id)) {

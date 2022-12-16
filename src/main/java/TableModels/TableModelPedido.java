@@ -15,6 +15,9 @@ public class TableModelPedido extends AbstractTableModel {
     String[] cabecera = {"ID", "NOMBRE"};
     private final List<Pedido> pedidos;
 
+    /**
+     * Funciona igual que la clase TableModelEmpleado
+     */
     public TableModelPedido(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }

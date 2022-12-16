@@ -12,7 +12,13 @@ import java.io.OutputStream;
 // Creamos una subclase de ObjectOutputStream
 public class MyObjectOutputStream extends ObjectOutputStream {
 
-    // Constructor
+    /**
+     * Constructor de MyObjectOutpuStream que se hereda de ObjectOutPutStream, la uso para poder guardar objetos en
+     * un fichero.dat sin problemas de tipo Serializable
+     *
+     * @param out
+     * @throws IOException
+     */
     public MyObjectOutputStream(OutputStream out) throws IOException {
         super(out);
     }

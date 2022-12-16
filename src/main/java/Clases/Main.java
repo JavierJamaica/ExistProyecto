@@ -14,7 +14,17 @@ import java.text.ParseException;
  * 20/11/2022 - 16:52
  */
 public class Main {
+    /**
+     * Funcion principal para ejecutar la aplicacion, muestra una ventana emergente dependiendo de la opcion elegida
+     * llamara a la ventana de carga para reinicar los xml de exist o a la ventana principal para usar la apliacion
+     *
+     * @param args
+     * @throws IOException
+     * @throws ParseException
+     * @throws XMLDBException
+     */
     public static void main(String[] args) throws IOException, ParseException, XMLDBException {
+
         int ventanaYesNotCancel = JOptionPane.showConfirmDialog(null, "Si es la primera vez que inicias la aplicacion o deseas reinicar la base de datos dale a yes!", "Mi programa pai", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (ventanaYesNotCancel == 0) {
             Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();

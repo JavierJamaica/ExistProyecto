@@ -14,6 +14,14 @@ public class Pedido implements Serializable {
     private Empleado empleado;
     private List<Producto> productos;
 
+    /**
+     * Constructor de la clase pedido
+     *
+     * @param id        que recibe el constructor para aignarlo al objeto pedido
+     * @param nombre    que recibe el constructor para asignarlo al objeto pedido
+     * @param empleado  es un objeto que recibe el constructor para asignarlo al pedido
+     * @param productos una lista de objetos de tipo Producto para asignarlos en el pedido
+     */
     public Pedido(int id, String nombre, Empleado empleado, List<Producto> productos) {
         this.id = id;
         this.nombre = nombre;
@@ -21,6 +29,9 @@ public class Pedido implements Serializable {
         this.productos = productos;
     }
 
+    /**
+     * Getters y Setter del objeto Pedido, se usan para ver o asignar los atributos del objeto
+     */
     public int getId() {
         return id;
     }
@@ -53,6 +64,9 @@ public class Pedido implements Serializable {
         this.productos = productos;
     }
 
+    /**
+     * @return nos devuleve todos los atributos del objeto
+     */
     @Override
     public String toString() {
         return "Pedido{" +

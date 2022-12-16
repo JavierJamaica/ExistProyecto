@@ -14,6 +14,9 @@ public class TableModelProducto extends AbstractTableModel {
     String[] cabecera = {"ID", "NOMBRE", "DESCRIPCION", "PRECIO"};
     private final List<Producto> productos;
 
+    /**
+     * Funciona igual que la clase TableModelEmpleado
+     */
     public TableModelProducto(List<Producto> productos) {
         this.productos = productos;
     }

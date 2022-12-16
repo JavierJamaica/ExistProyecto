@@ -11,12 +11,22 @@ import java.io.ObjectInputStream;
 // Creamos una subclase de ObjectInputStream
 public class MyInputObjectStream extends ObjectInputStream {
 
-    // Constructor
+    /**
+     * Constructor de la clase MyInputObjectStream la cual se hereda de ObjectInputStream, la uso para poder leer
+     * objetos en un fichero.dat sin ningun problema de tipo Serializable
+     *
+     * @param in
+     * @throws IOException
+     */
     public MyInputObjectStream(InputStream in) throws IOException {
         super(in);
     }
 
-    // Y la funcion que nos permite leer tantos bytes despues de la marca
+    /**
+     * Funcion parra asignar cuantos bytes puede leer esta clase
+     *
+     * @throws IOException
+     */
     protected void readStreamHeader() throws IOException {
         // do not write a header, but reset:
         // this line added after another question
