@@ -35,19 +35,43 @@ public class MenuBusquedaPedido extends JFrame {
         idButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new BuscarIdPedido();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
             }
         });
         nombreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new BuscarNombrePedido();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
             }
         });
         productosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new BuscarProdsPedido();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
             }
         });
         atrasButton.addActionListener(new ActionListener() {
@@ -57,6 +81,20 @@ public class MenuBusquedaPedido extends JFrame {
                 int height = pantalla.height;
                 int width = pantalla.width;
                 JFrame frame = new VentanaBusquedas();
+                frame.setLocation(width / 3, height / 3);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
+        empleadoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = pantalla.height;
+                int width = pantalla.width;
+                JFrame frame = new BuscarEmpPedido();
                 frame.setLocation(width / 3, height / 3);
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

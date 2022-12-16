@@ -738,9 +738,113 @@ public class XmlBack {
 
     }
 
+    public static List<Pedido> BuscarNombrePedido(String nombre) {
+        List<Pedido> pedidos = new ArrayList<>();
+        if (conectar() != null) {
+            try {
+                XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+
+                ResourceSet result = servicio.query("for $pedido in /ListaPedidos/DatosPedido[nombre='" + nombre + "']\n" +
+                        "let $id:=data($pedido/id)\n" +
+                        "let $nombre:=data($pedido/nombre)\n" +
+                        "return <p>,{$id},{$nombre},</p>");
+                ResourceIterator i;
+                i = result.getIterator();
+                if (!i.hasMoreResources()) {
+                    JOptionPane.showMessageDialog(null, "No hay datos para mostrar!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+                }
+
+                while (i.hasMoreResources()) {
+                    Resource r = i.nextResource();
+                    String resultado = (String) r.getContent();
+                    String[] arrayString = resultado.split(",");
+                    Pedido pedido = new Pedido(Integer.parseInt(arrayString[1]), arrayString[2], null, null);
+                    pedidos.add(pedido);
+                }
+
+            } catch (XMLDBException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        return pedidos;
+
+    }
+
+    public static List<Producto> consultarProdsPedido(int idPe) {
+        List<Producto> productos = new ArrayList<>();
+        if (ComprobarIdPedido(idPe)) {
+            if (conectar() != null) {
+                try {
+                    XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+
+                    ResourceSet result = servicio.query("for $pedidoProd in /ListaPedidos/DatosPedido[id ='" + idPe + "']/productos\n" +
+                            "let $idProd:=data($pedidoProd/producto/@id)\n" +
+                            "let $precio :=data($pedidoProd/producto/precio)\n" +
+                            "return <producto>,{$idProd},{$precio},</producto>");
+
+
+                    ResourceIterator i;
+
+                    i = result.getIterator();
+                    if (!i.hasMoreResources()) {
+                        JOptionPane.showMessageDialog(null, "No hay datos para mostrar!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+                    }
+
+
+                    while (i.hasMoreResources()) {
+                        Resource r = i.nextResource();
+
+
+                        String resultado = (String) r.getContent();
+                        String[] arrayString = resultado.split(",");
+                        String[] arrayIds = arrayString[1].split(" ");
+                        String[] arrayPrecios = arrayString[2].split(" ");
+
+                        for (int j = 0; j < arrayIds.length; j++) {
+                            int id = Integer.parseInt(arrayIds[j]);
+                            double precio = Double.parseDouble(arrayPrecios[j]);
+                            ResourceSet result2 = servicio.query("for $pedidoProd in /ListaPedidos/DatosPedido[id ='" + idPe + "']/productos\n" +
+                                    "let $nombre:=data($pedidoProd/producto[@id='" + id + "']/nombreProducto)\n" +
+                                    "let $descripcion:=data($pedidoProd/producto[@id='" + id + "']/descripcion)\n" +
+                                    "return <producto>,{$nombre},{$descripcion},</producto>");
+                            ResourceIterator i2;
+                            i2 = result2.getIterator();
+                            if (!i2.hasMoreResources()) {
+                                JOptionPane.showMessageDialog(null, "No hay datos para mostrar!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+                            }
+
+                            while (i2.hasMoreResources()) {
+                                Resource r2 = i2.nextResource();
+                                String resultado2 = (String) r2.getContent();
+                                String[] arraysString = resultado2.split(",");
+                                Producto producto = new Producto(id, arraysString[1], arraysString[2], precio);
+                                productos.add(producto);
+                            }
+
+                        }
+
+                    }
+                } catch (XMLDBException e) {
+                    JOptionPane.showMessageDialog(null, "Error interno perdona las molestias!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ese pedido!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+        return productos;
+
+    }
+
     public static Empleado consultarEmpPedido(int idPe) {
         Empleado emp = null;
-
 
 
         if (conectar() != null) {
@@ -779,6 +883,7 @@ public class XmlBack {
 
         return emp;
     }
+
 
     public static void borrarPedido(int id) {
         if (ComprobarIdPedido(id)) {
@@ -941,7 +1046,7 @@ public class XmlBack {
     }
 
 
-    public static void modificarPedido(int id, String nuevoNombre,int op) {
+    public static void modificarPedido(int id, String nuevoNombre, int op) {
         ResourceSet result;
         if (ComprobarIdPedido(id)) {
             if (conectar() != null) {
@@ -972,6 +1077,7 @@ public class XmlBack {
         }
 
     }
+
 }
 
 
