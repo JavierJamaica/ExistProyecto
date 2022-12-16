@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="contenedorPrincipal" layout-manager="GridLayoutManager" row-count="3" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="5" left="5" bottom="5" right="5"/>
     <constraints>
-      <xy x="20" y="20" width="530" height="502"/>
+      <xy x="20" y="20" width="814" height="502"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -85,16 +85,16 @@
       <scrollpane id="724d4">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="800" height="40"/>
+            <minimum-size width="40" height="40"/>
           </grid>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
-          <component id="4d53" class="javax.swing.JTextArea" binding="tabla">
+          <component id="e20d8" class="javax.swing.JTable" binding="tabla">
             <constraints/>
             <properties>
-              <editable value="false"/>
+              <preferredScrollableViewportSize width="450" height="130"/>
             </properties>
           </component>
         </children>

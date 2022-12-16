@@ -1,6 +1,7 @@
 package Ventanas;
 
 import Clases.XmlBack;
+import TableModels.TableModelProducto;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -17,15 +18,15 @@ public class BuscarIdProducto extends JFrame {
     private JSpinner id;
     private JButton buscarButton;
     private JButton atrasButton;
-    private JTextArea tabla;
+    private JTable tabla;
 
     public BuscarIdProducto() {
         setContentPane(contenedorPrincipal);
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!XmlBack.consultarIdProductos((int) id.getValue()).equals("")) {
-                    tabla.setText(XmlBack.consultarIdProductos((int) id.getValue()));
+                if (XmlBack.consultarIdProductos((int) id.getValue())!=null) {
+                    tabla.setModel(new TableModelProducto(XmlBack.consultarIdProductos((int) id.getValue())));
 
                 }
 

@@ -1,6 +1,7 @@
 package Ventanas;
 
 import Clases.XmlBack;
+import TableModels.TableModelEmpleado;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,16 +18,22 @@ public class BuscarNombreEmpleado extends JFrame {
     private JTextField nombreBuscar;
     private JTextArea textArea1;
     private JPanel contenedorPrincipal;
+    private JTable table1;
 
     public BuscarNombreEmpleado() {
         setContentPane(contenedorPrincipal);
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!XmlBack.consultarNombreEmpleado(nombreBuscar.getText()).equals("")) {
-                    textArea1.setText(XmlBack.consultarNombreEmpleado(nombreBuscar.getText()));
+                if (nombreBuscar.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+                    table1.setModel(new TableModelEmpleado(XmlBack.consultarNombreEmpleado(nombreBuscar.getText())));
 
                 }
+
+
             }
         });
         atrasButton.addActionListener(new ActionListener() {

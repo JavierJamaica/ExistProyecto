@@ -1,6 +1,7 @@
 package Ventanas;
 
 import Clases.XmlBack;
+import TableModels.TableModelEmpleado;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,14 +18,15 @@ public class BuscarIdEmpleado extends JFrame {
     private JSpinner spinner1;
     private JButton buscarButton;
     private JButton atrasButton;
+    private JTable table1;
 
     public BuscarIdEmpleado() {
         setContentPane(contenedorPrincipal);
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!XmlBack.consultarIdEmpleado((int) spinner1.getValue()).equals("")) {
-                    textArea1.setText(XmlBack.consultarIdEmpleado((int) spinner1.getValue()));
+                if (XmlBack.consultarIdEmpleado((int) spinner1.getValue())!=null) {
+                    table1.setModel(new TableModelEmpleado(XmlBack.consultarIdEmpleado((int)spinner1.getValue())));
 
                 }
             }

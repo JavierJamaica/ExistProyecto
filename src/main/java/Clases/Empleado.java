@@ -53,5 +53,11 @@ public class Empleado implements Serializable {
         this.fechaContratacion = fechaContratacion;
     }
 
-
+    @Override
+    public String toString() {
+        return   id +
+                ", " + nombre + '\'' +
+                ", " + apellidos + '\'' +
+                "," + fechaContratacion;
+    }
 }

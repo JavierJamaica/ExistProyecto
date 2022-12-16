@@ -50,7 +50,7 @@ public class crearProducto extends JFrame {
                                 String nombre = textoNombre.getText();
                                 String descripcion = textoDescripcion.getText();
                                 if (!comprobarDescripcion(descripcion).equals(" ")) {
-                                    XmlBack.insertarProducto(id, nombre, descripcion, precio);
+                                  XmlBack.insertarProducto(id, nombre, descripcion, precio);
                                     Limpiar(idProducto, textoNombre, textoDescripcion, textoPrecio);
                                 }
                             }

@@ -19,6 +19,10 @@ public class Producto implements Serializable {
         this.precio = precio;
     }
 
+    public Producto() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -53,11 +57,9 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "Producto{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", precio=" + precio +
-                '}';
+        return id +
+                ", " + nombre + '\'' +
+                ", " + descripcion + '\'' +
+                ", " + precio;
     }
 }

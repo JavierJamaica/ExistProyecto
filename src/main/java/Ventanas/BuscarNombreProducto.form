@@ -89,9 +89,11 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="a4e7a" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+          <component id="85a63" class="javax.swing.JTable" binding="table1" default-binding="true">
             <constraints/>
-            <properties/>
+            <properties>
+              <preferredScrollableViewportSize width="450" height="130"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

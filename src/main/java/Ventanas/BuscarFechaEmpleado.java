@@ -1,11 +1,13 @@
 package Ventanas;
 
 import Clases.XmlBack;
+import TableModels.TableModelEmpleado;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 /**
  * @author Javier Jamaica
@@ -16,6 +18,7 @@ public class BuscarFechaEmpleado extends JFrame {
     private JTextField fechaBuscar;
     private JButton buscarButton;
     private JButton atrasButton;
+    private JTable tabla;
     private JTextArea textArea1;
 
     public BuscarFechaEmpleado() {
@@ -37,8 +40,16 @@ public class BuscarFechaEmpleado extends JFrame {
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!XmlBack.consultarFechaEmpleado(fechaBuscar.getText()).equals("")) {
-                    textArea1.setText(XmlBack.consultarFechaEmpleado(fechaBuscar.getText()));
+
+                if (!fechaBuscar.getText().equals("")) {
+                    try {
+                        tabla.setModel(new TableModelEmpleado(XmlBack.consultarFechaEmpleado(fechaBuscar.getText())));
+                    } catch (ParseException ex) {
+                        JOptionPane.showMessageDialog(null, "La fecha no tiene un formato valido dd/MM/yyyy!", "Error!", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "La fecha no puede estar vacia!", "Error!", JOptionPane.ERROR_MESSAGE);
 
                 }
             }

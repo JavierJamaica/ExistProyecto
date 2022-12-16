@@ -1,6 +1,7 @@
 package Ventanas;
 
 import Clases.XmlBack;
+import TableModels.TableModelProducto;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,14 +18,17 @@ public class BuscarNombreProducto extends JFrame {
     private JTextField nombreBuscar;
     private JTextArea textArea1;
     private JPanel contenedorPrincipal;
+    private JTable table1;
 
     public BuscarNombreProducto() {
         setContentPane(contenedorPrincipal);
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!XmlBack.consultarNombreProducto(nombreBuscar.getText()).equals("")) {
-                    textArea1.setText(XmlBack.consultarNombreProducto(nombreBuscar.getText()));
+                if (!nombreBuscar.getText().equals("")) {
+                 table1.setModel(new TableModelProducto(XmlBack.consultarNombreProducto(nombreBuscar.getText())));
+                } else {
+                    JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio!", "Error!", JOptionPane.ERROR_MESSAGE);
 
                 }
             }

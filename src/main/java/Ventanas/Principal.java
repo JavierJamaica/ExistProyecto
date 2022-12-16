@@ -21,6 +21,7 @@ public class Principal extends JFrame {
     private JLabel tituloEmpleados;
     private JLabel tituloBusquedas;
     private JLabel imagenLabel;
+    private JButton salirButton;
 
     public Principal() {
         setContentPane(contenedorPrincipal);
@@ -88,6 +89,12 @@ public class Principal extends JFrame {
             }
         });
 
+        salirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
     public static void CargarImagen(JLabel imagenLabel) {

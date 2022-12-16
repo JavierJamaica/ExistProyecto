@@ -17,10 +17,10 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="cd705" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+          <component id="c44e2" class="javax.swing.JTable" binding="tabla">
             <constraints/>
             <properties>
-              <text value=""/>
+              <preferredScrollableViewportSize width="450" height="130"/>
             </properties>
           </component>
         </children>

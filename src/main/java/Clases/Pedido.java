@@ -11,10 +11,10 @@ public class Pedido implements Serializable {
 
     private int id;
     private String nombre;
-    private String empleado;
+    private Empleado empleado;
     private List<Producto> productos;
 
-    public Pedido(int id, String nombre, String empleado, List<Producto> productos) {
+    public Pedido(int id, String nombre, Empleado empleado, List<Producto> productos) {
         this.id = id;
         this.nombre = nombre;
         this.empleado = empleado;
@@ -37,11 +37,11 @@ public class Pedido implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getEmpleado() {
+    public Empleado getEmpleado() {
         return empleado;
     }
 
-    public void setEmpleado(String empleado) {
+    public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
     }
 
@@ -58,7 +58,7 @@ public class Pedido implements Serializable {
         return "Pedido{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", empleado='" + empleado + '\'' +
+                ", empleado=" + empleado +
                 ", productos=" + productos +
                 '}';
     }
